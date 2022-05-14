@@ -27,4 +27,22 @@ class Customer1(models.Model):
 class HouseKeeping(models.Model):
       Roomno=models.CharField(max_length=10)
       HouseKeepingRequest=models.TextField()
-      
+
+class FoodOrder(models.Model):
+    username=models.CharField(max_length=30)
+    name=models.CharField(max_length=30)
+    quantity=models.IntegerField()
+    price=models.IntegerField()
+    total=models.IntegerField()
+
+class FoodItemBreakfast(models.Model):
+    name=models.CharField(max_length=30)
+    price=models.IntegerField()
+
+class FoodItemLunch(models.Model):
+    name=models.CharField(max_length=30)
+    price=models.IntegerField()
+
+class FoodItemDinner(models.Model):
+    name=models.CharField(max_length=30)
+    price=models.IntegerField()
