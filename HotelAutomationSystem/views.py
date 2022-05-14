@@ -21,6 +21,8 @@ def index(request):
 
 def food(request):
     breakfast_food_details=FoodItemBreakfast.objects.all()
+    lunch_food_details=FoodItemLunch.objects.all()
+    dinner_food_details=FoodItemDinner.objects.all()
     if request.method=="POST":
         post=FoodOrder()
         post.username=request.user
@@ -31,6 +33,16 @@ def food(request):
                 name=breakfast_food_detail.name
                 price=breakfast_food_detail.price
                 break
+        for lunch_food_detail in lunch_food_details:
+            if lunch_food_detail.name in request.POST:
+                name=lunch_food_detail.name
+                price=lunch_food_detail.price
+                break
+        for dinner_food_detail in dinner_food_details:
+            if dinner_food_detail.name in request.POST:
+                name=dinner_food_detail.name
+                price=dinner_food_detail.price
+                break
         post.name=name
         post.price=price
 
@@ -39,7 +51,11 @@ def food(request):
         post.save()
     
 
-    context={"breakfast_food_details" : breakfast_food_details}
+    context={
+             "breakfast_food_details" : breakfast_food_details, 
+             "lunch_food_details" : lunch_food_details,
+             "dinner_food_details" : dinner_food_details
+             }
     return render(request,'food.html',context)
 
 def SignUp(request):
