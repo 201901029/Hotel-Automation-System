@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      img {
+        vertical-align: middle;
+        border-style: none;
+        height: 400px;
+        margin-left: 50px;
+        width: 600px;
+        padding-bottom: 20px;
+      }
+      h1 {
+        color: white;
+        padding: 25px 30px;
+        background-color: #1e272e;
+      }
+      h6 {
+        margin-left: 0px;
+      }
+      .nav-list {
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-list li {
+        list-style: none;
+        padding: 25px 30px;
+        color: black;
+      }
+
+      .nav-list li a {
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 1.6px 3.2rem;
+        color: white;
+        border: 1px solid black;
+      }
+      .temp1 {
+        width: 320px;
+        padding: 10px;
+        border: 5px solid gray;
+        margin-left: 10px;
+        height: 200px;
+      }
+      .temp {
+        display: flex;
+      }
+      .nav-list li a:hover {
+        color: black;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+    <title>Hotel Management System</title>
+  </head>
+  <body>
+    {% for message in messages %}
+    <div
+      class="alert alert-{{message.tags}} alert-dismissible fade show"
+      role="alert"
+    >
+      Message: {{message}}
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+
+    <h1 align="center">ROOM BOOKING</h1>
+    {% if success%} {% if list %}
+    <h2 align="center">Available Rooms</h2>
+    {% for item in list%} {% if item.image %}
+    <div class="temp">
+      <img src="{% static item.image.url %}" />
+      {% endif %}
+      <div class="temp1">
+        {{item.name}}
+        <br />
+        Price: - {{item.price}} Rs
+      </div>
+    </div>
+    {% endfor %}
+    <h6 align="center">BOOK ROOM</h6>
+    <div class="form-group">
+      <form action="{% url 'savecustomerdetails' %}" method="POST">
+        {% csrf_token %} {{ form.as_p }} Please Select From above Available
+        Rooms -{% for item in list %}
+        <label>{{item.name}}</label>
+        <input type="radio" name="Room_type" value="{{item.name}}" />
+        {% endfor %}
+        <input type="submit" value="submit" class="btn btn-success" />
+      </form>
+    </div>
+    {%else%}
+    <h2 align="center">Sorry No Rooms are available currently</h2>
+    {% endif %} {% else %}
+    <h6 align="center">BOOK ROOM</h6>
+    <div class="form-group">
+      <form action="" method="POST">
+        {% csrf_token %} {{ form.as_p }}
+        <input type="submit" value="submit" class="btn btn-success" />
+        <a class="btn btn-primary" href="/" role="button">BACK TO HOME</a>
+      </form>
+    </div>
+
+    {% endif %}
+  </body>
+</html>
