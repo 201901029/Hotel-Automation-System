@@ -1,0 +1,314 @@
+﻿{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url("{% static 'bg4.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: "Source Sans Pro", sans-serif;
+        }
+
+        .heading {
+            font-size: 25px;
+            margin-right: 25px;
+        }
+
+        .fa {
+            font-size: 25px;
+        }
+
+        .checked {
+            color: orange;
+        }
+
+        /* Three column layout */
+        .side {
+            float: left;
+            width: 15%;
+            margin-top: 10px;
+        }
+
+        .middle {
+            float: left;
+            width: 70%;
+            margin-top: 10px;
+        }
+
+        /* Place text to the right */
+        .right {
+            text-align: right;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* The bar container */
+        .bar-container {
+            width: 100%;
+            background-color: #f1f1f1;
+            text-align: center;
+            color: white;
+        }
+
+        /* Individual bars */
+        .bar-5 {
+            width: 60%;
+            height: 18px;
+            background-color: #04AA6D;
+        }
+
+        .bar-4 {
+            width: 30%;
+            height: 18px;
+            background-color: #2196F3;
+        }
+
+        .bar-3 {
+            width: 10%;
+            height: 18px;
+            background-color: #00bcd4;
+        }
+
+        .bar-2 {
+            width: 4%;
+            height: 18px;
+            background-color: #ff9800;
+        }
+
+        .bar-1 {
+            width: 15%;
+            height: 18px;
+            background-color: #f44336;
+        }
+
+        /* Responsive layout - make the columns stack on top of each other instead of next to each other */
+        @media (max-width: 400px) {
+            .side, .middle {
+                width: 100%;
+            }
+            /* Hide the right column on small screens */
+            .right {
+                display: none;
+            }
+        }
+
+        button {
+            font-size: 20px;
+            color: white;
+            background-color: orange;
+            margin-top: 50px;
+            margin-left: 35px;
+            margin-right: 30px;
+            border-radius: 25px;
+            border: 1px solid black;
+            padding: 15px;
+            cursor: pointer;
+        }
+
+        .login {
+            padding: 10px 18px;
+            margin: 10px 5px;
+        }
+
+        .links {
+            float: right;
+            list-style: none;
+            margin-top: 35px;
+            margin-right: 35px;
+        }
+
+
+            .links li {
+                display: inline-block;
+            }
+
+                .links li a {
+                    font-family: "Roboto",sans-serif;
+                    font-size: 15px;
+                    color: white;
+                    text-decoration: none;
+                    padding: 10px 30px;
+                }
+
+        .main {
+            margin-top: 200px;
+            margin-bottom: 350px;
+            color: white;
+            font-size: 50px;
+            text-align: center;
+        }
+
+        .Reviews {
+            box-sizing: border-box;
+            font-family: Arial;
+            margin: 0 auto; /* Center website */
+            max-width: 800px; /* Max width */
+            padding: 20px;
+        }
+
+        .links li a:hover {
+            border: 1px solid white;
+            border-radius: 20px;
+            background-color: orange;
+        }
+
+        .bablu {
+            padding-top: 400px;
+        }
+
+        .main2 {
+            margin-bottom: 35px;
+            text-align: center;
+            letter-spacing: 6px;
+            padding-top: 100px;
+            color: #FBBBB9;
+        }
+
+        .paragraph {
+            margin-left: 125px;
+            margin-right: 125px;
+            margin-bottom: 50px;
+            font-size: 20px;
+            text-align: center;
+            line-height: 45px;
+        }
+
+        .photo1 {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 53px;
+            margin-right: 20px;
+        }
+
+        .photo2 {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 53px;
+            margin-right: 20px;
+        }
+
+        .vedant {
+            padding-top: 250px;
+            padding-left: 450px;
+            font-size: 50px;
+            color: white;
+        }
+
+        .table3 {
+            width: 800px;
+            border-collapse: collapse;
+            border-radius: 35px;
+        }
+
+            .table3 td {
+                text-align: center;
+            }
+
+        .temp {
+            margin-top: 100px;
+        }
+
+        .links h5 {
+            font-family: "Roboto",sans-serif;
+            font-size: 15px;
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            text-transform: uppercase;
+        }
+
+        .submit {
+            margin-top: 20px;
+            margin-bottom: 150px;
+        }
+
+        .temppp {
+            padding-top: 20px;
+            padding-left: 600px;
+            font-size: 30px;
+            color: pink;
+        }
+
+        .temppp1 {
+            padding-top: 80px;
+            padding-left: 600px;
+            font-size: 10px;
+            color: pink;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+    <title>Hotel Management System</title>
+</head>
+<body>
+
+    <div class="temppp">
+        <h1> Breakfast </h1>
+
+        {% for breakfast_food_detail in breakfast_food_details %}
+        {{ breakfast_food_detail.name }} {{ breakfast_food_detail.price }}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="number" class="form-control" id="quantity" name="quantity" />
+            </div>
+            <button type="submit" class="btn btn-primary" name="{{ breakfast_food_detail.name }}" value="Submit">Submit</button>
+        </form>
+        {% endfor %}
+
+        <h2> Lunch </h2>
+
+        {% for lunch_food_detail in lunch_food_details %}
+        {{ lunch_food_detail.name }} {{ lunch_food_detail.price }}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="number" class="form-control" id="quantity" name="quantity" />
+            </div>
+            <button type="submit" class="btn btn-primary" name="{{ lunch_food_detail.name }}" value="Submit">Submit</button>
+        </form>
+        {% endfor %}
+
+        <h3> Dinner </h3>
+
+        {% for dinner_food_detail in dinner_food_details %}
+        {{ dinner_food_detail.name }} {{ dinner_food_detail.price }}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="number" class="form-control" id="quantity" name="quantity" />
+            </div>
+            <button type="submit" class="btn btn-primary" name="{{ dinner_food_detail.name }}" value="Submit">Submit</button>
+        </form>
+        {% endfor %}
+
+    </div>
+    <a class="btn btn-primary" href="/" role="button">BACK TO HOME</a>
+
+
+</body>
+</html>

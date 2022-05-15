@@ -4,19 +4,59 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
-from HotelAutomationSystem.models import Hotel
-from HotelAutomationSystem.models import CheckAvailability
+from HotelAutomationSystem.models import *
 from HotelAutomationSystem.forms import Availabilityform
 from HotelAutomationSystem.forms import Customerform
 from HotelAutomationSystem.forms import Housekeepingform
-from HotelAutomationSystem.models import Customer1
-from HotelAutomationSystem.models import HouseKeeping
+
 
 from django.core.mail import send_mail
 from datetime import *
+
+username_for_use=[]
+
 def index(request):
     context = {'name':'Vedant'}
     return render(request,'index.html',context)
+
+def food(request):
+    breakfast_food_details=FoodItemBreakfast.objects.all()
+    lunch_food_details=FoodItemLunch.objects.all()
+    dinner_food_details=FoodItemDinner.objects.all()
+    if request.method=="POST":
+        post=FoodOrder()
+        post.username=request.user
+        price=0
+        name="123"
+        for breakfast_food_detail in breakfast_food_details:
+            if breakfast_food_detail.name in request.POST:
+                name=breakfast_food_detail.name
+                price=breakfast_food_detail.price
+                break
+        for lunch_food_detail in lunch_food_details:
+            if lunch_food_detail.name in request.POST:
+                name=lunch_food_detail.name
+                price=lunch_food_detail.price
+                break
+        for dinner_food_detail in dinner_food_details:
+            if dinner_food_detail.name in request.POST:
+                name=dinner_food_detail.name
+                price=dinner_food_detail.price
+                break
+        post.name=name
+        post.price=price
+
+        post.quantity=request.POST.get('quantity')
+        post.total=int(price)*int(post.quantity)
+        post.save()
+    
+
+    context={
+             "breakfast_food_details" : breakfast_food_details, 
+             "lunch_food_details" : lunch_food_details,
+             "dinner_food_details" : dinner_food_details
+             }
+    return render(request,'food.html',context)
 
 def SignUp(request):
     list=User.objects.all()
@@ -30,7 +70,7 @@ def SignUp(request):
                     messages.error(request,"This username already exists")
                     return HttpResponseRedirect('/SignUp')
             if(password != confirmpassword):
-                    messages.error(request,"Paaswords do not match")
+                    messages.error(request,"Passwords do not match")
                     return HttpResponseRedirect('/SignUp')
             newUser=User.objects.create_user(username,email,password)
             newUser.save()
@@ -45,6 +85,7 @@ def dologin(request):
         password1=request.POST['password']
         user = authenticate(username=username1,password=password1)
         if user is not None:
+            username_for_use=username1
             login(request,user)
             messages.success(request,'You are successfully logged in')
             return redirect('p1')
@@ -54,6 +95,7 @@ def dologin(request):
     return render(request,'login.html')
 
 def dologout(request):
+    username_for_use=[]
     logout(request)
     messages.success(request,"You are successfully logged out")
     return redirect('index')

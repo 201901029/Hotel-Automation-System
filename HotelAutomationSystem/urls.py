@@ -29,4 +29,5 @@ urlpatterns = [
     path('p2',views.p2,name='p2'),
     path('p3',views.p3,name='p3'),
     path('HouseKeeping',views.HouseKeepingview,name='HouseKeeping'),
+    path('food',views.food,name='food'),
 ]
