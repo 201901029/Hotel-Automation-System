@@ -8,7 +8,7 @@ from HotelAutomationSystem.models import *
 from HotelAutomationSystem.forms import Availabilityform
 from HotelAutomationSystem.forms import Customerform
 from HotelAutomationSystem.forms import Housekeepingform
-
+from HotelAutomationSystem.models import FoodOrder
 
 from django.core.mail import send_mail
 from datetime import *
@@ -23,7 +23,16 @@ def food(request):
     breakfast_food_details=FoodItemBreakfast.objects.all()
     lunch_food_details=FoodItemLunch.objects.all()
     dinner_food_details=FoodItemDinner.objects.all()
+    flag=0
+    email=request.user.email
     if request.method=="POST":
+        for item in Customer1.objects.all():
+            if str(item.email)==email:
+                flag=1
+                break
+        if flag==0:
+            messages.error(request,"Please book the room first")
+            return redirect('RoomBooking')
         post=FoodOrder()
         post.username=request.user
         price=0
@@ -49,7 +58,7 @@ def food(request):
         post.quantity=request.POST.get('quantity')
         post.total=int(price)*int(post.quantity)
         post.save()
-    
+        messages.success(request,"Your order has been placed successfully")
 
     context={
              "breakfast_food_details" : breakfast_food_details, 
@@ -196,6 +205,7 @@ def savecustomerdetails(request):
 
 def Docheckout(request):
     flag=0
+    list=[]
     temp=str(request.user.email)
     print(temp)
     if(request.method=="POST"):
@@ -217,10 +227,18 @@ def Docheckout(request):
                 obj1=item
                 break;
         Amount=(obj.no_of_rooms) * (obj1.price)
-        tax=(Amount*5)/(100)
-        tot=Amount+tax
+        tot_Amount=Amount
+        name=str(request.user)
+        for item in FoodOrder.objects.all():
+            if str(item.username)==name:
+                list.append(item)
+        for item in list:
+            tot_Amount=tot_Amount+item.total
+        tax=(tot_Amount*5)/(100)
+        tot=tot_Amount+tax
         Customer1.objects.filter(email=s1).all().delete()
-        return render(request,'checkout.html',{'obj':obj,'obj1':obj1,'success':True,'Amount':Amount,'tax':tax,'tot':tot})
+        FoodOrder.objects.filter(username=name).all().delete()
+        return render(request,'checkout.html',{'obj':obj,'obj1':obj1,'success':True,'Amount':Amount,'tax':tax,'tot':tot,'tot_Amount':tot_Amount,'list':list})
     return render(request,'checkout.html',{'success':False})
 
 

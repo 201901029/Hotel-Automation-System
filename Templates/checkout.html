@@ -188,9 +188,18 @@
               <td>{{obj.no_of_rooms}}</td>
               <td>{{Amount}}</td>
             </tr>
+
+            {% for item in list %}
+            <tr>
+              <td>{{item.name}}</td>
+              <td>{{item.price}}</td>
+              <td>{{item.quantity}}</td>
+              <td>{{item.total}}</td>
+            </tr>
+            {% endfor %}
             <tr>
               <td colspan="3" class="text-right" id="p1">Sub Total</td>
-              <td>{{Amount}}</td>
+              <td>{{tot_Amount}}</td>
             </tr>
             <tr>
               <td colspan="3" class="text-right">Tax Total</td>
